@@ -11,8 +11,8 @@ variable "internet_gateway_Name" {
 }
 
 variable "availability_zone" {
-  type = list(string)
-  default = [ "ap-south-1a","ap-south-1b","ap-south-1c" ]
+  type    = list(string)
+  default = ["ap-south-1a", "ap-south-1b", "ap-south-1c"]
 }
 
 
@@ -47,15 +47,24 @@ variable "public_route_cidr" {
 #----------
 variable "instance" {
   type = object({
-    name = string
-    ami = string
+    name          = string
+    ami           = string
     instance_type = string
-    key_name = string
+    key_name      = string
   })
 }
 variable "security_group_Name" {
   type = string
 }
+#-----------------
+
+variable "ecr" {
+  type = object({
+    name                 = string
+    image_tag_mutability = string
+  })
+}
+
 
 variable "tags" {
   type = object({
