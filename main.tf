@@ -33,10 +33,13 @@ module "EC2" {
   vpc_id              = module.VPC.vpc_id
   security_group_Name = var.security_group_Name
   subnet_id           = module.VPC.public_subnet_id1a
+
   tags = {
     Environment = var.tags.Environment
     Project     = var.tags.Project
   }
+
+  depends_on = [ module.VPC ]
 }
 
 module "ECR" {
@@ -45,4 +48,6 @@ module "ECR" {
     name                 = var.ecr.name
     image_tag_mutability = var.ecr.image_tag_mutability
   }
+
+  depends_on = [ module.VPC,module.EC2 ]
 }
