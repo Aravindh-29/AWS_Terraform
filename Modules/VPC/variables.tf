@@ -42,6 +42,10 @@ variable "public_route_cidr" {
 }
 
 
+variable "eks_cluster_name" {
+  type = string
+}
+
 variable "tags" {
   type = object({
     Environment = string

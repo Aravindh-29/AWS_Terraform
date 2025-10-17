@@ -56,6 +56,7 @@ variable "instance" {
 variable "security_group_Name" {
   type = string
 }
+
 #-----------------
 
 variable "ecr" {
@@ -64,6 +65,21 @@ variable "ecr" {
     image_tag_mutability = string
   })
 }
+
+#----------
+
+variable "eks_cluster_name" {
+  type = string
+}
+
+
+variable "node_group_name" {
+  type = string
+}
+variable "instance_types" {
+  type = list(string)
+}
+
 
 
 variable "tags" {

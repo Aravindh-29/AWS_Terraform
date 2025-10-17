@@ -29,6 +29,12 @@ ecr = {
   image_tag_mutability = "IMMUTABLE"
 }
 
+eks_cluster_name = "demo-cluster"
+
+node_group_name = "demo-eks-nodes"
+instance_types  = ["t3.micro"]
+
+
 tags = {
   Environment = "Dev"
   Project     = "DbConTester"

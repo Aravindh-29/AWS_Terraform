@@ -15,6 +15,8 @@ module "VPC" {
   private_subnet_cidrs = var.private_subnet_cidrs
   private_subnet_name  = var.private_subnet_name
 
+  eks_cluster_name = var.eks_cluster_name
+
   tags = {
     Environment = var.tags.Environment
     Project     = var.tags.Project
@@ -39,7 +41,7 @@ module "EC2" {
     Project     = var.tags.Project
   }
 
-  depends_on = [ module.VPC ]
+  depends_on = [module.VPC]
 }
 
 module "ECR" {
@@ -49,5 +51,23 @@ module "ECR" {
     image_tag_mutability = var.ecr.image_tag_mutability
   }
 
-  depends_on = [ module.VPC,module.EC2 ]
+  depends_on = [module.VPC, module.EC2]
+}
+
+module "EKS" {
+  source = "./Modules/EKS"
+
+  eks_cluster_name = var.eks_cluster_name
+  private_subnet1  = module.VPC.private_subnet1
+  private_subnet2  = module.VPC.private_subnet2
+  private_subnet3  = module.VPC.private_subnet3
+  public_subnet1 = module.VPC.public_subnet_id1a
+
+  vpc_cidr = module.VPC.vpc_cidr
+  node_group_name = var.node_group_name
+  instance_types  = var.instance_types
+
+  tags = var.tags
+
+  depends_on = [module.VPC, module.EC2, module.ECR]
 }
