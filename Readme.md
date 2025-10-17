@@ -108,10 +108,21 @@ aws configure
 ### 🟠 2. Install `kubectl`
 
 ```bash
-curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.29.0/2024-03-27/bin/linux/amd64/kubectl
-chmod +x ./kubectl
-sudo mv ./kubectl /usr/local/bin
+# 1. Get the latest stable version
+KUBECTL_VERSION=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+
+# 2. Download the binary
+curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
+
+# 3. Make it executable
+chmod +x kubectl
+
+# 4. Move it to your PATH
+sudo mv kubectl /usr/local/bin/
+
+# 5. Verify the installation
 kubectl version --client
+
 ```
 
 👉 This installs a version compatible with your EKS cluster.
